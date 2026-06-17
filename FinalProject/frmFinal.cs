@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text;
 
+
 namespace FinalProject
 {
     public partial class frmFinal : Form
@@ -61,7 +62,29 @@ namespace FinalProject
                     item.Status
                 );
 
-                dgvTasks.Rows[rowIndex].Tag = item;
+                DataGridViewRow row = dgvTasks.Rows[rowIndex];
+                row.Tag = item;
+
+                if (item.Status == "已完成")
+                {
+                    row.DefaultCellStyle.BackColor = Color.Honeydew;
+                    row.DefaultCellStyle.ForeColor = Color.DarkGreen;
+                }
+                else if (item.DueDate.Date < DateTime.Today)
+                {
+                    row.DefaultCellStyle.BackColor = Color.MistyRose;
+                    row.DefaultCellStyle.ForeColor = Color.DarkRed;
+                }
+                else if (item.DueDate.Date <= DateTime.Today.AddDays(3))
+                {
+                    row.DefaultCellStyle.BackColor = Color.LemonChiffon;
+                    row.DefaultCellStyle.ForeColor = Color.DarkOrange;
+                }
+                else if (item.Status == "進行中")
+                {
+                    row.DefaultCellStyle.BackColor = Color.AliceBlue;
+                    row.DefaultCellStyle.ForeColor = Color.DarkBlue;
+                }
             }
 
             UpdateStatus();
@@ -182,6 +205,17 @@ namespace FinalProject
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (selectedTask != null)
+            {
+                MessageBox.Show(
+                    "目前正在編輯已選取的資料。\n\n如果要修改這筆資料，請按「修改」。\n如果要新增新資料，請先按「清空」。",
+                    "提醒",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                return;
+            }
+
             if (txtSubject.Text.Trim() == "")
             {
                 MessageBox.Show("請輸入科目。", "提醒");
@@ -428,44 +462,86 @@ namespace FinalProject
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                taskList.Clear();
-
-                string[] lines = File.ReadAllLines(openFileDialog.FileName, Encoding.UTF8);
-
-                for (int i = 0; i < lines.Length; i++)
+                try
                 {
-                    if (i == 0 && lines[i].StartsWith("科目"))
+                    string[] lines = File.ReadAllLines(openFileDialog.FileName, Encoding.UTF8);
+
+                    if (lines.Length == 0)
                     {
-                        continue;
+                        MessageBox.Show("檔案內容是空的，無法讀取。", "讀取失敗");
+                        return;
                     }
 
-                    if (lines[i].Trim() == "")
-                    {
-                        continue;
-                    }
+                    List<TaskItem> tempList = new List<TaskItem>();
 
-                    List<string> parts = SplitCsvLine(lines[i]);
-
-                    if (parts.Count >= 6)
+                    for (int i = 0; i < lines.Length; i++)
                     {
+                        string line = lines[i].Trim();
+
+                        if (line == "")
+                        {
+                            continue;
+                        }
+
+                        if (i == 0 && line.TrimStart('\uFEFF').StartsWith("科目"))
+                        {
+                            continue;
+                        }
+
+                        List<string> parts = SplitCsvLine(line);
+
+                        if (parts.Count != 6)
+                        {
+                            MessageBox.Show(
+                                $"第 {i + 1} 行資料格式錯誤，欄位數量不正確。\n\n請確認檔案格式是否為：\n科目,類型,名稱,截止日期,優先程度,狀態",
+                                "讀取失敗",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error
+                            );
+                            return;
+                        }
+
+                        DateTime dueDate;
+                        if (!DateTime.TryParse(parts[3], out dueDate))
+                        {
+                            MessageBox.Show(
+                                $"第 {i + 1} 行的截止日期格式錯誤。\n\n錯誤內容：{parts[3]}",
+                                "讀取失敗",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error
+                            );
+                            return;
+                        }
+
                         TaskItem item = new TaskItem()
                         {
                             Subject = parts[0],
                             Type = parts[1],
                             TaskName = parts[2],
-                            DueDate = DateTime.Parse(parts[3]),
+                            DueDate = dueDate.Date,
                             Priority = parts[4],
                             Status = parts[5]
                         };
 
-                        taskList.Add(item);
+                        tempList.Add(item);
                     }
+
+                    taskList = tempList;
+
+                    ShowTasks(taskList);
+                    ClearInput();
+
+                    MessageBox.Show("檔案讀取成功！", "完成");
                 }
-
-                ShowTasks(taskList);
-                ClearInput();
-
-                MessageBox.Show("檔案讀取成功！", "完成");
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        "讀取檔案時發生錯誤：\n\n" + ex.Message,
+                        "讀取失敗",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    );
+                }
             }
         }
 
