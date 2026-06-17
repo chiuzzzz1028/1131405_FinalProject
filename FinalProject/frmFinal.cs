@@ -129,7 +129,12 @@ namespace FinalProject
         }
         private string CsvEscape(string text)
         {
-            if (text.Contains(",") || text.Contains("\""))
+            if (text == null)
+            {
+                return "";
+            }
+
+            if (text.Contains(",") || text.Contains("\"") || text.Contains("\n") || text.Contains("\r"))
             {
                 text = text.Replace("\"", "\"\"");
                 return "\"" + text + "\"";
