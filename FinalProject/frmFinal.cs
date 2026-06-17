@@ -109,7 +109,7 @@ namespace FinalProject
                 t.DueDate.Date <= today.AddDays(3)
             );
 
-            sslTotal.Text = $"總事項數：{total}";
+            sslTotal.Text = $"總項目數：{total}";
             sslUnfinished.Text = $"未完成：{unfinished}";
             sslFinished.Text = $"已完成：{finished}";
             sslOverdue.Text = $"已逾期：{overdue}";
@@ -117,11 +117,11 @@ namespace FinalProject
 
             if (overdue > 0)
             {
-                sslReminder.Text = $"提醒：有 {overdue} 筆事項已逾期";
+                sslReminder.Text = $"提醒：有 {overdue} 筆項目已逾期";
             }
             else if (soonDue > 0)
             {
-                sslReminder.Text = $"提醒：有 {soonDue} 筆事項即將到期";
+                sslReminder.Text = $"提醒：有 {soonDue} 筆項目即將到期";
             }
             else
             {
@@ -279,7 +279,7 @@ namespace FinalProject
         {
             if (selectedTask == null)
             {
-                MessageBox.Show("請先選取要修改的事項。", "提醒");
+                MessageBox.Show("請先選取要修改的項目。", "提醒");
                 return;
             }
 
@@ -312,12 +312,12 @@ namespace FinalProject
         {
             if (selectedTask == null)
             {
-                MessageBox.Show("請先選取要刪除的事項。", "提醒");
+                MessageBox.Show("請先選取要刪除的項目。", "提醒");
                 return;
             }
 
             DialogResult result = MessageBox.Show(
-                "確定要刪除這筆事項嗎？",
+                "確定要刪除這筆項目嗎？",
                 "刪除確認",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning
@@ -434,7 +434,7 @@ namespace FinalProject
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "CSV 檔案 (*.csv)|*.csv|文字檔案 (*.txt)|*.txt";
-            saveFileDialog.Title = "儲存事項資料";
+            saveFileDialog.Title = "儲存項目資料";
             saveFileDialog.FileName = "學生作業與考試管理.csv";
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -458,7 +458,7 @@ namespace FinalProject
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "CSV 檔案 (*.csv)|*.csv|文字檔案 (*.txt)|*.txt";
-            openFileDialog.Title = "讀取事項資料";
+            openFileDialog.Title = "讀取項目資料";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -548,24 +548,82 @@ namespace FinalProject
         private void tsmiUserGuide_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
-            "學生作業與考試管理系統操作說明：\n\n" +
-            "1. 在左側資料輸入區輸入科目、類型、名稱、截止日期、優先程度與狀態。\n\n" +
-            "2. 按下「新增事項」後，資料會加入中間的項目清單。\n\n" +
-            "3. 點選項目清單中的資料後，資料會自動帶回左側欄位，可進行修改或刪除。\n\n" +
-            "4. 可使用右側的關鍵字搜尋、狀態篩選與類型篩選來查找資料。\n\n" +
-            "5. 可使用「依截止日期排序」或「依優先程度排序」整理項目順序。\n\n" +
-            "6. 下方狀態列會顯示總事項數、未完成、已完成、逾期與即將到期的事項數量。\n\n" +
-            "7. 可透過上方「檔案」選單進行儲存檔案與讀取檔案。",
-            "操作說明",
-            MessageBoxButtons.OK,
-            MessageBoxIcon.Information
-            );
+               "學生作業與考試管理系統操作說明：\n\n" +
+
+               "1. 在左側資料輸入區輸入科目、類型、名稱、截止日期、優先程度與狀態。\n\n" +
+
+               "2. 按下「新增項目」後，資料會加入中間的項目清單。\n\n" +
+
+               "3. 點選項目清單中的資料後，資料會自動帶回左側欄位，可進行修改或刪除。\n\n" +
+
+               "4. 若想快速完成某筆事項，可在項目清單中雙擊該筆資料，確認後系統會將狀態改為「已完成」。\n\n" +
+
+               "5. 可使用右側的關鍵字搜尋、狀態篩選與類型篩選來查找資料。\n\n" +
+
+               "6. 可使用「依截止日期排序」或「依優先程度排序」整理項目順序。\n\n" +
+
+               "7. 下方狀態列會顯示總項目數、未完成、已完成、逾期與即將到期的項目數量。\n\n" +
+
+               "8. 項目清單會依項目狀態與到期情況顯示不同顏色，方便使用者快速辨識。\n\n" +
+
+               "9. 可透過上方「檔案」選單進行 CSV 檔案的儲存與讀取。",
+               "操作說明",
+               MessageBoxButtons.OK,
+               MessageBoxIcon.Information
+    );
         }
 
         private void tsmiAbout_Click(object sender, EventArgs e)
         {
             frmAbout aboutForm = new frmAbout();
             aboutForm.ShowDialog(this);
+        }
+
+        private void dgvTasks_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+
+            DataGridViewRow row = dgvTasks.Rows[e.RowIndex];
+
+            if (row.Tag == null)
+            {
+                return;
+            }
+
+            TaskItem item = row.Tag as TaskItem;
+
+            if (item == null)
+            {
+                return;
+            }
+
+            if (item.Status == "已完成")
+            {
+                MessageBox.Show("這筆項目已經是完成狀態。", "提醒");
+                return;
+            }
+
+            DialogResult result = MessageBox.Show(
+                "確定要將這筆項目標記為已完成嗎？",
+                "標記完成確認",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                item.Status = "已完成";
+
+                selectedTask = null;
+
+                ApplySearchAndFilter();
+                ClearInput();
+
+                MessageBox.Show("已將項目標記為完成！", "完成");
+            }
         }
     }
 }
