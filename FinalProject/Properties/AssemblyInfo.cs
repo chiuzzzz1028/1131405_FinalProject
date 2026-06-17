@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 // 變更這些屬性的值即可修改組件的相關
 // 資訊。
 [assembly: AssemblyTitle("FinalProject")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("本系統可用來管理學生作業、考試、報告與專題事項，提供新增、修改、刪除、搜尋、篩選、排序、統計提醒與讀寫檔功能。")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FinalProject")]
+[assembly: AssemblyCompany("YZU")]
+[assembly: AssemblyProduct("學生作業與考試管理系統")]
 [assembly: AssemblyCopyright("Copyright ©  2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

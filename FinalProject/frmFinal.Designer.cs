@@ -99,9 +99,9 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BackColor = System.Drawing.Color.MediumAquamarine;
             this.panel1.Controls.Add(this.grpTaskInfo);
-            this.panel1.Location = new System.Drawing.Point(0, 34);
+            this.panel1.Location = new System.Drawing.Point(0, 45);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(217, 577);
+            this.panel1.Size = new System.Drawing.Size(217, 566);
             this.panel1.TabIndex = 0;
             // 
             // panel2
@@ -129,9 +129,9 @@
             this.panel3.BackColor = System.Drawing.Color.LightPink;
             this.panel3.Controls.Add(this.grpSearch);
             this.panel3.Controls.Add(this.grpAction);
-            this.panel3.Location = new System.Drawing.Point(963, 34);
+            this.panel3.Location = new System.Drawing.Point(963, 45);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(213, 577);
+            this.panel3.Size = new System.Drawing.Size(213, 566);
             this.panel3.TabIndex = 1;
             // 
             // grpTaskInfo
@@ -154,7 +154,7 @@
             this.grpTaskInfo.Font = new System.Drawing.Font("微軟正黑體", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.grpTaskInfo.Location = new System.Drawing.Point(7, 11);
             this.grpTaskInfo.Name = "grpTaskInfo";
-            this.grpTaskInfo.Size = new System.Drawing.Size(203, 554);
+            this.grpTaskInfo.Size = new System.Drawing.Size(203, 532);
             this.grpTaskInfo.TabIndex = 0;
             this.grpTaskInfo.TabStop = false;
             this.grpTaskInfo.Text = "資料輸入：";
@@ -288,7 +288,7 @@
             // 
             this.lblListTitle.AutoSize = true;
             this.lblListTitle.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lblListTitle.Location = new System.Drawing.Point(223, 36);
+            this.lblListTitle.Location = new System.Drawing.Point(228, 52);
             this.lblListTitle.Name = "lblListTitle";
             this.lblListTitle.Size = new System.Drawing.Size(134, 31);
             this.lblListTitle.TabIndex = 14;
@@ -311,7 +311,7 @@
             this.colDueDate,
             this.colPriority,
             this.colStatus});
-            this.dgvTasks.Location = new System.Drawing.Point(223, 77);
+            this.dgvTasks.Location = new System.Drawing.Point(223, 91);
             this.dgvTasks.MultiSelect = false;
             this.dgvTasks.Name = "dgvTasks";
             this.dgvTasks.ReadOnly = true;
@@ -319,7 +319,7 @@
             this.dgvTasks.RowHeadersWidth = 62;
             this.dgvTasks.RowTemplate.Height = 31;
             this.dgvTasks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTasks.Size = new System.Drawing.Size(734, 474);
+            this.dgvTasks.Size = new System.Drawing.Size(734, 460);
             this.dgvTasks.TabIndex = 15;
             this.dgvTasks.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTasks_CellClick);
             // 
@@ -423,6 +423,8 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.AutoSize = false;
+            this.menuStrip1.Font = new System.Drawing.Font("微軟正黑體", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -430,7 +432,7 @@
             this.tsmiFile});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1176, 36);
+            this.menuStrip1.Size = new System.Drawing.Size(1176, 45);
             this.menuStrip1.TabIndex = 16;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -440,7 +442,7 @@
             this.tsmiUserGuide,
             this.tsmiAbout});
             this.tsmiHelp.Name = "tsmiHelp";
-            this.tsmiHelp.Size = new System.Drawing.Size(62, 27);
+            this.tsmiHelp.Size = new System.Drawing.Size(62, 28);
             this.tsmiHelp.Text = "說明";
             // 
             // tsmiFile
@@ -449,7 +451,7 @@
             this.tsmiLoad,
             this.tsmiSave});
             this.tsmiFile.Name = "tsmiFile";
-            this.tsmiFile.Size = new System.Drawing.Size(62, 27);
+            this.tsmiFile.Size = new System.Drawing.Size(62, 28);
             this.tsmiFile.Text = "檔案";
             // 
             // tsmiLoad
@@ -457,12 +459,14 @@
             this.tsmiLoad.Name = "tsmiLoad";
             this.tsmiLoad.Size = new System.Drawing.Size(270, 34);
             this.tsmiLoad.Text = "讀取檔案";
+            this.tsmiLoad.Click += new System.EventHandler(this.tsmiLoad_Click);
             // 
             // tsmiSave
             // 
             this.tsmiSave.Name = "tsmiSave";
             this.tsmiSave.Size = new System.Drawing.Size(270, 34);
             this.tsmiSave.Text = "儲存檔案";
+            this.tsmiSave.Click += new System.EventHandler(this.tsmiSave_Click);
             // 
             // grpAction
             // 
@@ -533,12 +537,14 @@
             this.tsmiUserGuide.Name = "tsmiUserGuide";
             this.tsmiUserGuide.Size = new System.Drawing.Size(270, 34);
             this.tsmiUserGuide.Text = "操作說明";
+            this.tsmiUserGuide.Click += new System.EventHandler(this.tsmiUserGuide_Click);
             // 
             // tsmiAbout
             // 
             this.tsmiAbout.Name = "tsmiAbout";
             this.tsmiAbout.Size = new System.Drawing.Size(270, 34);
             this.tsmiAbout.Text = "關於系統";
+            this.tsmiAbout.Click += new System.EventHandler(this.tsmiAbout_Click);
             // 
             // grpSearch
             // 

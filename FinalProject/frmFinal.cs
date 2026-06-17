@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Text;
 
 namespace FinalProject
 {
@@ -102,6 +104,66 @@ namespace FinalProject
             {
                 sslReminder.Text = "提醒：目前沒有提醒";
             }
+        }
+        private string CsvEscape(string text)
+        {
+            if (text.Contains(",") || text.Contains("\""))
+            {
+                text = text.Replace("\"", "\"\"");
+                return "\"" + text + "\"";
+            }
+
+            return text;
+        }
+
+        private List<string> SplitCsvLine(string line)
+        {
+            List<string> result = new List<string>();
+            bool inQuotes = false;
+            string current = "";
+
+            for (int i = 0; i < line.Length; i++)
+            {
+                char c = line[i];
+
+                if (c == '"')
+                {
+                    if (inQuotes && i + 1 < line.Length && line[i + 1] == '"')
+                    {
+                        current += '"';
+                        i++;
+                    }
+                    else
+                    {
+                        inQuotes = !inQuotes;
+                    }
+                }
+                else if (c == ',' && !inQuotes)
+                {
+                    result.Add(current);
+                    current = "";
+                }
+                else
+                {
+                    current += c;
+                }
+            }
+
+            result.Add(current);
+            return result;
+        }
+
+        private string TaskToCsv(TaskItem item)
+        {
+            return string.Join(",", new string[]
+            {
+              CsvEscape(item.Subject),
+              CsvEscape(item.Type),
+              CsvEscape(item.TaskName),
+              item.DueDate.ToString("yyyy/MM/dd"),
+              CsvEscape(item.Priority),
+              CsvEscape(item.Status)
+            });
         }
         private void ClearInput()
         {
@@ -326,6 +388,108 @@ namespace FinalProject
             ApplySearchAndFilter();
 
             MessageBox.Show("已依優先程度排序。", "排序完成");
+        }
+
+        private void tsmiSave_Click(object sender, EventArgs e)
+        {
+            if (taskList.Count == 0)
+            {
+                MessageBox.Show("目前沒有資料可以儲存。", "提醒");
+                return;
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV 檔案 (*.csv)|*.csv|文字檔案 (*.txt)|*.txt";
+            saveFileDialog.Title = "儲存事項資料";
+            saveFileDialog.FileName = "學生作業與考試管理.csv";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                List<string> lines = new List<string>();
+
+                lines.Add("科目,類型,名稱,截止日期,優先程度,狀態");
+
+                foreach (TaskItem item in taskList)
+                {
+                    lines.Add(TaskToCsv(item));
+                }
+
+                File.WriteAllLines(saveFileDialog.FileName, lines, Encoding.UTF8);
+
+                MessageBox.Show("檔案儲存成功！", "完成");
+            }
+        }
+
+        private void tsmiLoad_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV 檔案 (*.csv)|*.csv|文字檔案 (*.txt)|*.txt";
+            openFileDialog.Title = "讀取事項資料";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                taskList.Clear();
+
+                string[] lines = File.ReadAllLines(openFileDialog.FileName, Encoding.UTF8);
+
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (i == 0 && lines[i].StartsWith("科目"))
+                    {
+                        continue;
+                    }
+
+                    if (lines[i].Trim() == "")
+                    {
+                        continue;
+                    }
+
+                    List<string> parts = SplitCsvLine(lines[i]);
+
+                    if (parts.Count >= 6)
+                    {
+                        TaskItem item = new TaskItem()
+                        {
+                            Subject = parts[0],
+                            Type = parts[1],
+                            TaskName = parts[2],
+                            DueDate = DateTime.Parse(parts[3]),
+                            Priority = parts[4],
+                            Status = parts[5]
+                        };
+
+                        taskList.Add(item);
+                    }
+                }
+
+                ShowTasks(taskList);
+                ClearInput();
+
+                MessageBox.Show("檔案讀取成功！", "完成");
+            }
+        }
+
+        private void tsmiUserGuide_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(
+            "學生作業與考試管理系統操作說明：\n\n" +
+            "1. 在左側資料輸入區輸入科目、類型、名稱、截止日期、優先程度與狀態。\n\n" +
+            "2. 按下「新增事項」後，資料會加入中間的項目清單。\n\n" +
+            "3. 點選項目清單中的資料後，資料會自動帶回左側欄位，可進行修改或刪除。\n\n" +
+            "4. 可使用右側的關鍵字搜尋、狀態篩選與類型篩選來查找資料。\n\n" +
+            "5. 可使用「依截止日期排序」或「依優先程度排序」整理項目順序。\n\n" +
+            "6. 下方狀態列會顯示總事項數、未完成、已完成、逾期與即將到期的事項數量。\n\n" +
+            "7. 可透過上方「檔案」選單進行儲存檔案與讀取檔案。",
+            "操作說明",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information
+            );
+        }
+
+        private void tsmiAbout_Click(object sender, EventArgs e)
+        {
+            frmAbout aboutForm = new frmAbout();
+            aboutForm.ShowDialog(this);
         }
     }
 }
