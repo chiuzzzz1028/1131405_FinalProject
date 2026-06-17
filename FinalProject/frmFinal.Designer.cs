@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.grpTaskInfo = new System.Windows.Forms.GroupBox();
             this.cmbStatus = new System.Windows.Forms.ComboBox();
@@ -306,14 +306,14 @@
             this.dgvTasks.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTasks.BackgroundColor = System.Drawing.Color.FloralWhite;
             this.dgvTasks.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTasks.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("微軟正黑體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTasks.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvTasks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTasks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colSubject,
@@ -595,21 +595,22 @@
             this.tsmiUserGuide,
             this.tsmiAbout});
             this.tsmiHelp.Name = "tsmiHelp";
-            this.tsmiHelp.Size = new System.Drawing.Size(68, 41);
-            this.tsmiHelp.Text = "說明";
+            this.tsmiHelp.Size = new System.Drawing.Size(98, 41);
+            this.tsmiHelp.Text = "說明(&H)";
             // 
             // tsmiUserGuide
             // 
             this.tsmiUserGuide.Name = "tsmiUserGuide";
-            this.tsmiUserGuide.Size = new System.Drawing.Size(194, 34);
-            this.tsmiUserGuide.Text = "操作說明";
+            this.tsmiUserGuide.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.tsmiUserGuide.Size = new System.Drawing.Size(270, 34);
+            this.tsmiUserGuide.Text = "操作說明(&U)";
             this.tsmiUserGuide.Click += new System.EventHandler(this.tsmiUserGuide_Click);
             // 
             // tsmiAbout
             // 
             this.tsmiAbout.Name = "tsmiAbout";
-            this.tsmiAbout.Size = new System.Drawing.Size(194, 34);
-            this.tsmiAbout.Text = "關於系統";
+            this.tsmiAbout.Size = new System.Drawing.Size(270, 34);
+            this.tsmiAbout.Text = "關於系統(&A)";
             this.tsmiAbout.Click += new System.EventHandler(this.tsmiAbout_Click);
             // 
             // tsmiFile
@@ -618,21 +619,23 @@
             this.tsmiLoad,
             this.tsmiSave});
             this.tsmiFile.Name = "tsmiFile";
-            this.tsmiFile.Size = new System.Drawing.Size(68, 41);
-            this.tsmiFile.Text = "檔案";
+            this.tsmiFile.Size = new System.Drawing.Size(93, 41);
+            this.tsmiFile.Text = "檔案(&F)";
             // 
             // tsmiLoad
             // 
             this.tsmiLoad.Name = "tsmiLoad";
-            this.tsmiLoad.Size = new System.Drawing.Size(270, 34);
-            this.tsmiLoad.Text = "讀取檔案";
+            this.tsmiLoad.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.tsmiLoad.Size = new System.Drawing.Size(302, 34);
+            this.tsmiLoad.Text = "讀取檔案(&O)";
             this.tsmiLoad.Click += new System.EventHandler(this.tsmiLoad_Click);
             // 
             // tsmiSave
             // 
             this.tsmiSave.Name = "tsmiSave";
-            this.tsmiSave.Size = new System.Drawing.Size(270, 34);
-            this.tsmiSave.Text = "儲存檔案";
+            this.tsmiSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.tsmiSave.Size = new System.Drawing.Size(302, 34);
+            this.tsmiSave.Text = "儲存檔案(&S)";
             this.tsmiSave.Click += new System.EventHandler(this.tsmiSave_Click);
             // 
             // ssrStatus
