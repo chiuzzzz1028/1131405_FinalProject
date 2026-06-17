@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Text;
 
 
 namespace FinalProject
@@ -556,7 +555,7 @@ namespace FinalProject
 
                "3. 點選項目清單中的資料後，資料會自動帶回左側欄位，可進行修改或刪除。\n\n" +
 
-               "4. 若想快速完成某筆事項，可在項目清單中雙擊該筆資料，確認後系統會將狀態改為「已完成」。\n\n" +
+               "4. 若想快速完成某筆項目，可在項目清單中雙擊該筆資料，確認後系統會將狀態改為「已完成」。\n\n" +
 
                "5. 可使用右側的關鍵字搜尋、狀態篩選與類型篩選來查找資料。\n\n" +
 
