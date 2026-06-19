@@ -8,10 +8,22 @@
 
 ### 主畫面
 
-<img width="593" height="352" alt="image" src="https://github.com/user-attachments/assets/a7d478f3-79b2-4286-9bfa-fba34a105a8b" />
-<img width="593" height="353" alt="image" src="https://github.com/user-attachments/assets/12dbfc10-f370-4394-b8a9-24fbd0e286c4" />
-
-
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img width="100%" alt="初始畫面"
+           src="https://github.com/user-attachments/assets/a7d478f3-79b2-4286-9bfa-fba34a105a8b" />
+    </td>
+    <td align="center" width="50%">
+      <img width="100%" alt="讀取課業資料後的畫面"
+           src="https://github.com/user-attachments/assets/12dbfc10-f370-4394-b8a9-24fbd0e286c4" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center">系統初始畫面</td>
+    <td align="center">讀取課業資料後的畫面</td>
+  </tr>
+</table>
 
 ## 功能介紹
 
@@ -118,15 +130,29 @@ CSV 檔案包含以下欄位：
 
 ### 11. 操作說明與關於系統
 
-<img width="593" height="350" alt="image" src="https://github.com/user-attachments/assets/6e38c6c3-67d5-4568-b14f-22cd565c27f4" />
-<img width="593" height="352" alt="image" src="https://github.com/user-attachments/assets/7bff1e6c-ffce-4689-892c-5b6dcb1a232a" />
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img width="100%" alt="操作說明視窗"
+           src="https://github.com/user-attachments/assets/6e38c6c3-67d5-4568-b14f-22cd565c27f4" />
+    </td>
+    <td align="center" width="50%">
+      <img width="100%" alt="關於系統視窗"
+           src="https://github.com/user-attachments/assets/7bff1e6c-ffce-4689-892c-5b6dcb1a232a" />
+    </td>
+  </tr>
+  <tr>
+    <td align="center">操作說明視窗</td>
+    <td align="center">關於系統視窗</td>
+  </tr>
+</table>
 
 上方「說明」選單包含：
 
 - 操作說明
 - 關於系統
 
-操作說明會顯示系統的使用步驟；關於系統則會開啟 About 表單，顯示專案名稱、版本與製作者資訊。
+操作說明會顯示系統的使用步驟；關於系統則會開啟 About 表單，顯示專案名稱、版本與作者資訊。
 
 ## 快捷鍵
 
@@ -135,5 +161,5 @@ CSV 檔案包含以下欄位：
 | `Alt + H` | 開啟說明選單 |
 | `Alt + F` | 開啟檔案選單 |
 | `F1` | 顯示操作說明 |
-| `Ctrl + O` or `Alt + O` | 讀取檔案 |
-| `Ctrl + S` or `Alt + S` | 儲存檔案 |
+| `Ctrl + O` or `Alt + F` 後按 `O` | 讀取檔案 |
+| `Ctrl + S` or `Alt + F` 後按 `S` | 儲存檔案 |
